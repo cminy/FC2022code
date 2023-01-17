@@ -92,23 +92,26 @@ while not game_over:
         rand_speed = random.randint(1, 10)
         v.fd(rand_speed)
         if v.xcor() >= 270:
-            game_over = True
             winner = i+1
+            game_over = True
 
 # result
 n.clear() # 지우고 다시 쓰기
 n.up()
 n.goto(0, -290)
 n.color('black')
-if winner != usr_choice-1:
-    result = f'졌습니다... 우승은 {winner}번 거북이!'
-else:
+if winner == usr_choice:
     result = '이겼습니다!'
+else:
+    result = f'졌습니다... 우승은 {winner}번 거북이!'
 n.write(f'당신의 거북이가 {result}', True, 'center', ("Verdana", 30, 'normal'))
 
-
+t_rank = []
+for i, v in enumerate(turtles):
+    t_rank.append([v.xcor(), v.ycor(), i+1])
+t_rank.sort(reverse=True)
+for i, v in enumerate(t_rank[:3]):
+    n.goto(310, v[1])
+    n.write(f'{i+1}등!')
 # m.done()
 t.exitonclick()
-
-
-
